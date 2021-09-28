@@ -68,15 +68,20 @@ img {
   display: none;
 }
 
+
+/*******************************************
+      
+        768px
+
+*******************************************/
+
 @media screen and (max-width: 768px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
     display: block;
   }
-}
 
-@media screen and (max-width: 768px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;
@@ -90,6 +95,12 @@ img {
   }
 }
 
+
+/*******************************************
+      
+                540PX
+
+*******************************************/
 
 
  @media screen and (max-width: 540px) {
@@ -458,10 +469,11 @@ input[data-error]::after {
   grid-column: span 8;
 }
 .hero-img img {
-  width: 100%;
+  width: auto;
   height: 100%;
   display: block;
   padding: 0;
+  overflow: hidden;
 }
 .copyrights {
   color: #fe142f;
@@ -478,6 +490,15 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
+
+
+/*******************************************
+      
+                   800px
+
+*******************************************/
+
+
 @media screen and (max-width: 800px) {
   .hero-section {
     display: block;

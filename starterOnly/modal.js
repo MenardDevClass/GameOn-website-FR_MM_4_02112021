@@ -5,8 +5,8 @@ function editNav() {
   } else {
     x.className = "topnav";
   }
-}
 
+}
 
 
 // DOM Elements
