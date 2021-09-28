@@ -22,4 +22,22 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
+document.addEventListener(
+	"click",
+	function (event) {
+	
+		if (
+			event.target.matches(".close") ||
+			!event.target.closest(".modal-body")
+		) {
+			closeModal();
+		}
+	},
+	false
+);
+
+function closeModal() {
+	document.querySelector(".bground").style.display = "none";
+}
+
 
