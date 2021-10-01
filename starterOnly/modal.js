@@ -13,31 +13,22 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-
+const closeBtn = document.querySelector(".close")
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // launch modal form
-function launchModal() {
+function launchModal() { 
   modalbg.style.display = "block";
 }
 
-document.addEventListener(
-	"click",
-	function (event) {
+//bouton "close"
+
+closeBtn.addEventListener("click", closeModal);
 	
-		if (
-			event.target.matches(".close") ||
-			!event.target.closest(".modal-body")
-		) {
-			closeModal();
-		}
-	},
-	false
-);
 
 function closeModal() {
-	document.querySelector(".bground").style.display = "none";
+	modalbg.style.display = "none";
 }
 
 
