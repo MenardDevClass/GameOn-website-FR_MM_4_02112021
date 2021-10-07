@@ -35,10 +35,10 @@ img {
   margin: 3.5%;
 }
 .header-logo {
-    float: left;
+  float: left;
 }
 .main-navbar {
-    float: right;
+  float: right;
 }
 .topnav a {
   float: left;
@@ -68,21 +68,20 @@ img {
   display: none;
 }
 
-
-/*******************************************
-      
-        768px
-
-*******************************************/
-
 @media screen and (max-width: 768px) {
-  .topnav a {display: none;}
+  .topnav a {
+    display: none;
+  }
   .topnav a.icon {
     float: right;
     display: block;
   }
+}
 
-  .topnav.responsive {position: relative;}
+@media screen and (max-width: 768px) {
+  .topnav.responsive {
+    position: relative;
+  }
   .topnav.responsive .icon {
     position: absolute;
     right: 0;
@@ -95,22 +94,16 @@ img {
   }
 }
 
-
-/*******************************************
-      
-                540PX
-
-*******************************************/
-
-
- @media screen and (max-width: 540px) {
-  .topnav a {display: none;}
+@media screen and (max-width: 540px) {
+  .topnav a {
+    display: none;
+  }
   .topnav a.icon {
     float: right;
     display: block;
     margin-top: -15px;
   }
-} 
+}
 
 main {
   font-size: 130%;
@@ -122,8 +115,6 @@ main {
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
-
 }
 
 .modal-btn {
@@ -469,11 +460,10 @@ input[data-error]::after {
   grid-column: span 8;
 }
 .hero-img img {
-  width: auto;
+  width: 100%;
   height: 100%;
   display: block;
   padding: 0;
-  overflow: hidden;
 }
 .copyrights {
   color: #fe142f;
@@ -490,15 +480,6 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
-
-
-/*******************************************
-      
-                   800px
-
-*******************************************/
-
-
 @media screen and (max-width: 800px) {
   .hero-section {
     display: block;
@@ -548,3 +529,7 @@ footer {
   }
 }
 
+.error {
+  color: red;
+  font-size: 0.9rem;
+}
