@@ -65,7 +65,7 @@ inputs.forEach((input) => {
  * @return  {void} Valid ou renvoi msg erreur aux inputs
  */
 
-// eslint-disable-next-line max-lines-per-function
+//ajout validation
 function addValidation(input) {
   switch (input.type) {
     case "text":
@@ -112,7 +112,7 @@ function addValidation(input) {
   }
 }
 /**
- * Verifie si le formulaire est valide
+ * CHECK VALIDITÉ FORMULAIRE
  * @return  {void}  Form valide => Affiche message de validation / Form invalide => Affiche les messages d'erreurs
  */
 function submit() {
@@ -165,6 +165,9 @@ function createValidText() {
  * @param   {NodeListOf<Element>}  formDatas  Array (des parents des inputs(7))
  * @return  {boolean}             Si aucune erreur => true
  */
+
+
+
 function errorTest(formDatas) {
   for (const formData of formDatas) {
     if (formData.getAttribute("data-error")) {
@@ -193,11 +196,11 @@ function addDataError(formDatas) {
 function validText(input) {
   const value = input.value.trim();
   if (value.length < 2)
-    return showMessage(input, "Veuillez entrez au moins 2 caractères");
+    return showMessage(input, "Veuillez entrer au moins 2 caractères");
   else if (!firstLastRegex.test(value))
     return showMessage(
       input,
-      "Veuillez entrez seulement des caractéres litterales"
+      "Veuillez entrer seulement des caractères litteraux"
     );
   return showMessage(input, "");
 }
@@ -239,8 +242,8 @@ function validDate(input) {
   const value = input.value;
   const min = input.min;
   const max = input.max;
-  if (value < min) return showMessage(input, "Age maximum 100 ans");
-  else if (value > max) return showMessage(input, "Age minimum 18 ans");
+  if (value < min) return showMessage(input, "Age minimum 18 ans");
+  else if (value > max) return showMessage(input, "Age maximum 100 ans");
   showMessage(input, "");
 }
 
@@ -254,7 +257,7 @@ function validDate(input) {
 function validMail(input) {
   const value = input.value;
   if (!emailRegex.test(value))
-    return showMessage(input, "Veuillez entrez une adresse email valide");
+    return showMessage(input, "Veuillez entrer une adresse email valide");
   return showMessage(input, "");
 }
 
@@ -268,7 +271,7 @@ function validMail(input) {
 function validNumber(input, cible) {
   const value = parseInt(input.value);
   if (value < 0 || value > 100 || value.toString() === "NaN") {
-    return showMessage(input, "Veuillez entrez une valeur entre 0 et 100");
+    return showMessage(input, "Veuillez entrer une valeur entre 0 et 100");
   }
   if (value > 0 && numberOfLocationChecked(inputsLocations) === 0) {
     showMessage(cible, "Veuillez selectionner une ville");
