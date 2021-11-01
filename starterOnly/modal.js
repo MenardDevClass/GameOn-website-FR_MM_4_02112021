@@ -414,10 +414,7 @@ function showMessage(input, msg) {
     target.setAttribute("data-error", msg);
     target.setAttribute("data-error-visible", (msg !== "").toString());
   }
-  // msg === ""
-  //   ? target.removeAttribute("data-error")
-  //   : target.setAttribute("data-error", msg);
-  // target.setAttribute("data-error-visible", (msg !== "").toString());
+
 }
 
 /* ******************************************** NAVIGATION ************************************* */
