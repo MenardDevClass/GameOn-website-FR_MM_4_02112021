@@ -1,63 +1,85 @@
- function editNav() {
-   var x = document.getElementById("myTopnav");
-   if (x.className === "topnav") {
-     x.className += " responsive";
-   } else {
-     x.className = "topnav";
-   }
- }
-
-// DOM Elements
-const modalBtns = document.querySelectorAll(".modal-btn"); //Tous le boutons de la modal
-const formDatas = document.querySelectorAll(".formData"); //Toutes les class="formdata"
-const inputs = document.querySelectorAll("input"); // Tous les inputs
-const inputsLocations = document.querySelectorAll("input[name = location]"); //Tous les inputs ayant l'attribut [name = location]
-
-const modalBg = document.querySelector(".bground"); //Modal
-const form = document.querySelector("form"); //Formulaire
-const closeBtn = document.querySelector(".close"); // Modal close
+ /* ********************************* DOM ELEMENTS ************************************ */
 /**
- * input id="quantity"
- * @type    {any}
+ * Tous les boutons d'ouverture de la modal
  */
-const quantity = document.getElementById("quantity"); //Input tournoi participé
+const modalBtns = document.querySelectorAll(".modal-btn");
 /**
- * input id="checkbox1"
- * @type    {any}
+ * Tous les éléments avec la class="formdata"
  */
-const checkbox1 = document.getElementById("checkbox1"); //Conditions d'utilisation
+const formDatas = document.querySelectorAll(".formData");
+/**
+ * Tous les inputs
+ */
+const inputs = document.querySelectorAll("input");
+/**
+ * Tous les inputs ayant l'attribut [name = location]
+ */
+const inputsLocations = document.querySelectorAll("input[name = location]");
+/**
+ * Les 2 boutons du message de validation
+ */
+const btsCloseValidMsg = document.getElementsByName("button");
+/**
+ * Navigation
+ */
+const mainNavbar = document.querySelector(".main-navbar");
+/**
+ * Bouton burger de navigation(<768px)
+ * @type {any}
+ */
+const icon = document.querySelector(".icon");
+/**
+ * Formulaire
+ */
+const form = document.querySelector("form");
+/**
+ * Modal background
+ */
+const modalBg = document.querySelector(".bground");
+/**
+ * Bouton de fermeture de la modal
+ */
+const closeBtn = document.querySelector(".close");
+/**
+ * Modal body
+ */
+const modalBody = document.querySelector(".modal-body");
+/**
+ * Bonton soumission du formulaire
+ */
+const btnSubmit = document.querySelector(".btn-submit");
+/**
+ * Input du nombre de tournoi participé
+ * @type {any}
+ */
+const quantity = document.getElementById("quantity");
+/**
+ * Checkbox des conditions d'utilisation
+ * @type {any}
+ */
+const checkbox1 = document.getElementById("checkbox1"); //
 
-// Regex elements
-const firstLastRegex = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/; // (< 2 characters; Pas de chiffres)
+/* ************************************ REGEX ************************************* */
+/**
+ * Regex (< 2 characters; Pas de chiffres)
+ */
+const firstLastRegex = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
+/**
+ * Regex de vérification d'email
+ */
 const emailRegex =
   /^(([^<>()[]\.,;:s@]+(.[^<>()[]\.,;:s@]+)*)|(.+))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/; // Vérification d'email
 
-// launch modal event
-modalBtns.forEach((btn) => btn.addEventListener("click", launchModal));
-// close modal event
-closeBtn.addEventListener("click", closeModal);
+/* ************************************************ INPUTS ************************************ */
 /**
- * Ouverture de la modal
- * @return  {void}  Ajoute les data-error/Ajoute l'attribut "visible=true" à modalBg
+ * Pour chaque inputs
+ * @param   {HTMLInputElement}  input  Element input du formulaire
+ * @param {function} addValidation Fonction de verification des inputs
+ * @return  {void}         Chaque input est soumis à la function addValidation
  */
-function launchModal() {
-  addDataError(formDatas); // Ajoute les data-error pour eviter que le formulaire soit valide au chargement de la page
-  modalBg.setAttribute("visible", "true");
-}
-/**
- * Fermeture de la modal
- * @return  {void}  Supprime l'attribut "visible" à modalBg
- */
-function closeModal() {
-  modalBg.removeAttribute("visible");
-}
-
-// Pour chaque element input
 inputs.forEach((input) => {
-  // On les passe a la validation
   addValidation(input);
 });
-
 /**
  * Au clic ou au changement d'etat => valid ou renvoi msg erreur aux inputs.
  * Au clic sur submit => valid le formulaire ou renvoi msg erreur aux inputs
@@ -65,7 +87,7 @@ inputs.forEach((input) => {
  * @return  {void} Valid ou renvoi msg erreur aux inputs
  */
 
-//ajout validation
+// eslint-disable-next-line max-lines-per-function
 function addValidation(input) {
   switch (input.type) {
     case "text":
@@ -111,13 +133,18 @@ function addValidation(input) {
       break;
   }
 }
+
+/* ************************************* SUBMIT ***************************************** */
 /**
- * CHECK VALIDITÉ FORMULAIRE
+ * Verifie si le formulaire est valide
  * @return  {void}  Form valide => Affiche message de validation / Form invalide => Affiche les messages d'erreurs
  */
 function submit() {
-  if (errorTest(formDatas)) {
+  if (errorTest(formDatas) && btsCloseValidMsg.length < 2) {
     createValidText();
+    btsCloseValidMsg.forEach((button) => {
+      closeValidation(button);
+    });
   } else {
     inputs.forEach((input) => {
       switch (input.type) {
@@ -144,33 +171,48 @@ function submit() {
     });
   }
 }
+
 /**
- * ECRAN DE VALIDATION, CLIQUE POUR SUPPRIMER
- * @return  {void}  
+ * Affiche le message de validation
+ * @return  {void}  Affiche le message de validation / Change les attributs des boutons de la modal
  */
 function createValidText() {
   const validDiv = document.createElement("div");
   validDiv.id = "validDiv";
-  modalBg.appendChild(validDiv);
-  validDiv.innerHTML = "<p>Votre inscription a bien été prise en compte! </p>";
-  validDiv.onclick = function () {
-    form.reset();
+  modalBody.appendChild(validDiv);
+  validDiv.innerHTML = "<p>Merci ! Votre réservation à été recue</p>";
+  btnSubmit.setAttribute("type", "button");
+  btnSubmit.setAttribute("value", "Fermer");
+  btnSubmit.setAttribute("name", "button");
+  closeBtn.setAttribute("name", "button");
+}
+
+/**
+ * Ferme le message de validation
+ * @param {HTMLElement} button
+ * @return {void} Ferme le message de validation et la modal / Reinitialise le formulaire et les attributs des boutons
+ */
+function closeValidation(button) {
+  button.onclick = function () {
     addDataError(formDatas);
-    modalBg.removeChild(validDiv);
+    form.reset();
+    modalBody.removeChild(document.getElementById("validDiv"));
+    btnSubmit.removeAttribute("name");
+    closeBtn.removeAttribute("name");
+    btnSubmit.setAttribute("value", "C'est parti");
+    btnSubmit.setAttribute("type", "submit");
     closeModal();
   };
 }
+
 /**
- * CHECK VALIDATION INPUTS
+ * Permet de savoir si tous les inputs sont valides
  * @param   {NodeListOf<Element>}  formDatas  Array (des parents des inputs(7))
  * @return  {boolean}             Si aucune erreur => true
  */
-
-
-
 function errorTest(formDatas) {
   for (const formData of formDatas) {
-    if (formData.getAttribute("data-error")) {
+    if (formData.getAttribute("data-error") !== " ") {
       return false;
     }
   }
@@ -178,13 +220,20 @@ function errorTest(formDatas) {
 }
 
 /**
- * FORMULAIRE PAS "TRUE" AU LOADING
+ * Permet d'éviter que le formulaire soit valide au chargement de la page
  * @param   {NodeListOf}  formDatas  Array (des parents des inputs(7))
- * @return  {void}             Ajoute atrr"data-error" sauf à 'conditions' qui est checked
+ * @return  {void}             Ajoute atrr[data-error = "q"] sauf à 'conditions' qui est checked
  */
 function addDataError(formDatas) {
   for (const formData of formDatas) {
-    if (!formData.hasAttribute("id")) formData.setAttribute("data-error", " ");
+    if (!formData.childNodes[1].checked) {
+      formData.childNodes[1].setAttribute(
+        "data-error",
+        "Veuillez accepter les conditions d'utilisations"
+      );
+    } else {
+      formData.setAttribute("data-error", " ");
+    }
   }
 }
 /* **************************************** input[type=text] ************************** */
@@ -200,7 +249,7 @@ function validText(input) {
   else if (!firstLastRegex.test(value))
     return showMessage(
       input,
-      "Veuillez entrer seulement des caractères litteraux"
+      "Veuillez entrer seulement des caractéres litterales"
     );
   return showMessage(input, "");
 }
@@ -242,8 +291,8 @@ function validDate(input) {
   const value = input.value;
   const min = input.min;
   const max = input.max;
-  if (value < min) return showMessage(input, "Age minimum 18 ans");
-  else if (value > max) return showMessage(input, "Age maximum 100 ans");
+  if (value < min) return showMessage(input, "Age maximum 100 ans");
+  else if (value > max) return showMessage(input, "Age minimum 18 ans");
   showMessage(input, "");
 }
 
@@ -269,7 +318,7 @@ function validMail(input) {
  * @returns {void} Affiche ou supprime le message d'erreur
  */
 function validNumber(input, cible) {
-  const value = parseInt(input.value);
+  const value = parseInt(input.value, 10);
   if (value < 0 || value > 100 || value.toString() === "NaN") {
     return showMessage(input, "Veuillez entrer une valeur entre 0 et 100");
   }
@@ -279,7 +328,7 @@ function validNumber(input, cible) {
   if (value < numberOfLocationChecked(inputsLocations)) {
     showMessage(
       cible,
-      "Vous ne pouvez pas selectionner plus de villes que de tournoi participé"
+      "Vous ne pouvez pas selectionner plus de villes que de tournoi participés"
     );
     return showMessage(input, "");
   }
@@ -310,7 +359,7 @@ function validCheckboxLocation(input, quantity) {
   ) {
     return showMessage(
       input,
-      "Vous ne pouvez pas selectionner plus de villes que de tournoi participé"
+      "Vous ne pouvez pas selectionner plus de villes que de tournois auxquels vous avez participé"
     );
   }
   return showMessage(input, "");
@@ -339,6 +388,9 @@ function numberOfLocationChecked(arr) {
  * @return  {void}         Affiche ou supprime le message d'erreur
  */
 function validCheckboxConditions(input, elm) {
+  if (input !== elm) {
+    return null;
+  }
   if (input === elm && !input.checked) {
     return showMessage(
       input,
@@ -355,8 +407,70 @@ function validCheckboxConditions(input, elm) {
  */
 function showMessage(input, msg) {
   const target = input.parentElement;
-  msg === ""
-    ? target.removeAttribute("data-error")
-    : target.setAttribute("data-error", msg);
-  target.setAttribute("data-error-visible", (msg !== "").toString());
+  if (msg === "") {
+    target.setAttribute("data-error", " ");
+    target.removeAttribute("data-error-visible");
+  } else {
+    target.setAttribute("data-error", msg);
+    target.setAttribute("data-error-visible", (msg !== "").toString());
+  }
+  // msg === ""
+  //   ? target.removeAttribute("data-error")
+  //   : target.setAttribute("data-error", msg);
+  // target.setAttribute("data-error-visible", (msg !== "").toString());
+}
+
+/* ******************************************** NAVIGATION ************************************* */
+/**
+ * Lors du clic sur Burger
+ *@return  {void}  Ouverture ou fermeture de la navigation
+ */
+icon.onclick = function () {
+  editNav(mainNavbar);
+};
+/**
+ * Ouverture et fermeture de la navigation
+ * @param   {Element}  elm  Header
+ * @return  {void}       Ajoute ou supprime la class responsive
+ */
+function editNav(elm) {
+  if (elm.className === "main-navbar") {
+    elm.className += " responsive";
+  } else {
+    elm.className = "main-navbar";
+  }
+}
+
+/* ******************************** MODAL EVENTS *********************************** */
+/**
+ * Au clic sur un des boutons
+ * @param   {HTMLButtonElement}  btn          Bouton d'ouverture de la modal
+ * @param   {function} launchModal  Fonction d'ouverture de la modal
+ * @return  {void}               Ouverture de la modal
+ */
+modalBtns.forEach((btn) => btn.addEventListener("click", launchModal));
+/**
+ * Ouverture de la modal
+ * @return  {void}  Ajoute les data-error/Ajoute l'attribut "visible=true" à modalBg
+ */
+function launchModal() {
+  if (mainNavbar.className === "main-navbar responsive") {
+    editNav(mainNavbar);
+  }
+  addDataError(formDatas); // Ajoute les data-error pour eviter que le formulaire soit valide au chargement de la page
+  modalBg.setAttribute("visible", "true");
+}
+
+/**
+ * Au clic sur la croix
+ * @param   {function}  closeModal  Fonction de fermeture de la modal
+ * @return  {void}              Fermeture de la modal
+ */
+closeBtn.addEventListener("click", closeModal);
+/**
+ * Fermeture de la modal
+ * @return  {void}  Supprime l'attribut "visible" à modalBg
+ */
+function closeModal() {
+  modalBg.removeAttribute("visible");
 }
