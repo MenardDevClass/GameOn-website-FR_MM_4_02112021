@@ -24,7 +24,7 @@ const btsCloseValidMsg = document.getElementsByName("button");
  */
 const mainNavbar = document.querySelector(".main-navbar");
 /**
- * Bouton burger de navigation(<768px)
+ * Bouton de navigation(<768px)
  * @type {any}
  */
 const icon = document.querySelector(".icon");
@@ -81,8 +81,8 @@ inputs.forEach((input) => {
   addValidation(input);
 });
 /**
- * Au clic ou au changement d'etat => valid ou renvoi msg erreur aux inputs.
- * Au clic sur submit => valid le formulaire ou renvoi msg erreur aux inputs
+ * Au clic ou au changement d'etat => valide ou renvoie msg erreur aux inputs.
+ * Au clic sur submit => valide le formulaire ou renvoie msg erreur aux inputs
  * @param   {HTMLInputElement}  input  element input du formulaire
  * @return  {void} Valid ou renvoi msg erreur aux inputs
  */
@@ -180,7 +180,7 @@ function createValidText() {
   const validDiv = document.createElement("div");
   validDiv.id = "validDiv";
   modalBody.appendChild(validDiv);
-  validDiv.innerHTML = "<p>Merci ! Votre réservation à été recue</p>";
+  validDiv.innerHTML = "<p>Merci ! votre inscription a bien été prise en compte!</p>";
   btnSubmit.setAttribute("type", "button");
   btnSubmit.setAttribute("value", "Fermer");
   btnSubmit.setAttribute("name", "button");
@@ -422,7 +422,7 @@ function showMessage(input, msg) {
 
 /* ******************************************** NAVIGATION ************************************* */
 /**
- * Lors du clic sur Burger
+ * Lors du clic sur icone menu
  *@return  {void}  Ouverture ou fermeture de la navigation
  */
 icon.onclick = function () {
