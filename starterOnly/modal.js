@@ -180,7 +180,7 @@ function createValidText() {
   const validDiv = document.createElement("div");
   validDiv.id = "validDiv";
   modalBody.appendChild(validDiv);
-  validDiv.innerHTML = "<p>"Merci ! Votre réservation a été reçue.</p>";
+  validDiv.innerHTML = "<p>Merci ! votre inscription a bien été prise en compte!</p>";
   btnSubmit.setAttribute("type", "button");
   btnSubmit.setAttribute("value", "Fermer");
   btnSubmit.setAttribute("name", "button");
