@@ -1,4 +1,4 @@
- /* ********************************* DOM ELEMENTS ************************************ */
+/* ********************************* DOM ELEMENTS ************************************ */
 /**
  * Tous les boutons d'ouverture de la modal
  */
@@ -468,6 +468,7 @@ closeBtn.addEventListener("click", closeModal);
  * Fermeture de la modal
  * @return  {void}  Supprime l'attribut "visible" à modalBg
  */
-function closeModal() {
+function closeModal(e) {
+  e.preventDefault();
   modalBg.removeAttribute("visible");
 }
