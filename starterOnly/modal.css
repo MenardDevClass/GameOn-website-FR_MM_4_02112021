@@ -93,7 +93,7 @@ header .icon {
     transition: transform 1s ease-in-out;
     transition-delay: 1s;
     transform: translateX(0);
-    padding: 5px auto;
+    padding: 5px;
     text-decoration: none;
     z-index: 6;
   }
